@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project/models/card_info.dart';
 import 'package:project/models/history_info.dart';
 import 'package:project/models/item_info.dart';
+import 'package:project/screens/products/products_screen.dart';
 import 'package:project/widgets/expandable_history_card.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -49,7 +50,17 @@ class _HomeScreenState extends State<HomeScreen> {
     HistoryInfo(
         id: 0, name: "Bajrul", date: DateTime.now(), items: itemInfoList2),
     HistoryInfo(
-        id: 0, name: "Fatur", date: DateTime.now(), items: itemInfoList3)
+        id: 0, name: "Fatur", date: DateTime.now(), items: itemInfoList3),
+    HistoryInfo(
+        id: 0, name: "Fatur", date: DateTime.now(), items: itemInfoList3),
+    HistoryInfo(
+        id: 0, name: "Fatur", date: DateTime.now(), items: itemInfoList3),
+    HistoryInfo(
+        id: 0, name: "Fatur", date: DateTime.now(), items: itemInfoList3),
+    HistoryInfo(
+        id: 0, name: "Fatur", date: DateTime.now(), items: itemInfoList3),
+    HistoryInfo(
+        id: 0, name: "Fatur", date: DateTime.now(), items: itemInfoList3),
   ];
 
   List<String> months = [
@@ -70,6 +81,29 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              child: const Text("Toko Amril"),
+            ),
+            const ListTile(
+              title: Text("Home"),
+            ),
+            ListTile(
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, "/products");
+              },
+              title: const Text("Products"),
+            )
+          ],
+        ),
+      ),
       appBar: AppBar(
         title: const Text("Toko Amril"),
       ),
@@ -94,10 +128,10 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 20,
             ),
             SizedBox(
-              height: 300,
+              height: MediaQuery.of(context).size.width / (16 / 9) + 10,
               child: GridView.count(
                 crossAxisCount: 2,
-                childAspectRatio: (.3 / .2),
+                childAspectRatio: (16 / 9),
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 children: cardInfoList.map(
@@ -158,8 +192,15 @@ class _HomeScreenState extends State<HomeScreen> {
             //   ListTile(
             //     title: Text(months[i]),
             //   )
-            for (var i = 0; i < historyInfoList.length; i++)
-              ExpandableHistoryCard(historyInfo: historyInfoList[i])
+            ListView.builder(
+              itemCount: 3,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) =>
+                  ExpandableHistoryCard(historyInfo: historyInfoList[index]),
+            )
+            // for (var i = 0; i < 3; i++)
+            //   ExpandableHistoryCard(historyInfo: historyInfoList[i])
           ],
         ),
       ),
